@@ -12,4 +12,13 @@ fun PokemonListScreen(
     event: UIEvent?,
     actionChannel: SendChannel<KFunction1<PokemonListViewModel, *>>
 ) {
+    event?.let {
+        when (it) {
+            is PokemonListEvent.ReadyToFetch -> actionChannel.trySend(PokemonListViewModel::getPokemons)
+            else -> {
+            }
+        }
+    }
+
+
 }

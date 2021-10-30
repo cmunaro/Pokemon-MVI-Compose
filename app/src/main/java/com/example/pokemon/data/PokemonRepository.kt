@@ -1,10 +1,17 @@
 package com.example.pokemon.data
 
-import com.example.pokemon.data.model.PokemonListResponse
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.pokemon.data.model.PokemonResult
+import kotlinx.coroutines.flow.Flow
 
 class PokemonRepository(private val pokemonAPI: PokemonAPI) {
 
-    suspend fun getPokemon(): PokemonListResponse {
-        return pokemonAPI.getPokemona(0, 10)
-    }
+    fun getPokemons(): Flow<PagingData<PokemonResult>> = Pager(
+        config = PagingConfig(enablePlaceholders = false, pageSize = 25),
+        pagingSourceFactory = {
+            PokemonDataSource(pokemonAPI)
+        }
+    ).flow
 }

@@ -1,7 +1,6 @@
 package com.example.pokemon.di
 
 import com.example.pokemon.data.PokemonAPI
-import com.example.pokemon.data.PokemonRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -49,8 +48,4 @@ object APIModule {
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): PokemonAPI = retrofit.create(PokemonAPI::class.java)
-
-    @Singleton
-    @Provides
-    fun providesPokemonRepository(apiService: PokemonAPI) = PokemonRepository(apiService)
 }

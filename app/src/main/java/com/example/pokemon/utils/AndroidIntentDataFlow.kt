@@ -3,6 +3,7 @@ package com.example.pokemon.utils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.example.pokemon.Route
 import io.uniflow.android.AndroidDataFlow
 import io.uniflow.android.livedata.LiveDataPublisher
 import io.uniflow.core.flow.data.UIEvent
@@ -16,8 +17,8 @@ abstract class AndroidIntentDataFlow : AndroidDataFlow() {
     val intentChannel: SendChannel<Intent> = _intentChannel
     val events: LiveData<UIEvent> = (defaultDataPublisher as LiveDataPublisher).events
         .map { it.content }
-
     open val intentHandler: ((Intent) -> Unit)? = null
+    var routerChannel: Channel<Route>? = null
 
     init {
         viewModelScope.launch {
@@ -25,5 +26,9 @@ abstract class AndroidIntentDataFlow : AndroidDataFlow() {
                 intentHandler?.invoke(intent)
             }
         }
+    }
+
+    protected suspend fun navigateTo(route: Route) {
+        routerChannel?.send(route)
     }
 }

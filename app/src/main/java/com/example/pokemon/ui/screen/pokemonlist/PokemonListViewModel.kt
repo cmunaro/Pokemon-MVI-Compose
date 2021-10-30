@@ -2,6 +2,7 @@ package com.example.pokemon.ui.screen.pokemonlist
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import com.example.pokemon.Route
 import com.example.pokemon.data.PokemonRepository
 import com.example.pokemon.data.model.PokemonResponse
 import com.example.pokemon.utils.AndroidIntentDataFlow
@@ -34,7 +35,9 @@ class PokemonListViewModel @Inject constructor(
     }
 
     private fun showDetailsOf(pokemonId: Int) = action {
-
+        navigateTo(Route.PokemonDetail.apply {
+            this.pokemonId = pokemonId
+        })
     }
 }
 

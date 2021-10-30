@@ -21,7 +21,7 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun PokemonCard(pokemonName: String) {
+fun PokemonCard(pokemonName: String, id: Int) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
@@ -33,16 +33,10 @@ fun PokemonCard(pokemonName: String) {
                 modifier = Modifier
                     .fillMaxSize()
                     .aspectRatio(1f),
-                failure = {
-                    Image(
-                        painter = painterResource(id = R.drawable.placeholder),
-                        contentDescription = "",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
-                        modifier = Modifier
-                            .size(200.dp)
-                    )
-                },
-                imageModel = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/001.png",
+                failure = { UnknownImage() },
+                imageModel = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${
+                    id.toString().padStart(3, '0')
+                }.png",
                 shimmerParams = ShimmerParams(
                     baseColor = MaterialTheme.colors.surface,
                     highlightColor = Color.LightGray,
@@ -61,11 +55,21 @@ fun PokemonCard(pokemonName: String) {
     }
 }
 
+@Composable
+fun UnknownImage() {
+    Image(
+        painter = painterResource(id = R.drawable.placeholder),
+        contentDescription = "",
+        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+        modifier = Modifier
+            .size(200.dp)
+    )
+}
 
 @Preview
 @Composable
 fun previewPokemonCard() {
     PokemonTheme {
-        PokemonCard("Bulbasaur")
+        PokemonCard("Bulbasaur", 1)
     }
 }

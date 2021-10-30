@@ -6,19 +6,19 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.pokemon.data.model.PokemonResult
+import com.example.pokemon.data.model.PokemonResponse
 import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PokemonList(pagingDataFlow: Flow<PagingData<PokemonResult>>) {
+fun PokemonList(pagingDataFlow: Flow<PagingData<PokemonResponse>>) {
     val lazyPokemons = pagingDataFlow.collectAsLazyPagingItems()
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         content = {
             items(lazyPokemons.itemCount) { index ->
                 lazyPokemons[index]?.let {
-                    PokemonCard(it.name)
+                    PokemonCard(it.name, it.id)
                 }
             }
         }

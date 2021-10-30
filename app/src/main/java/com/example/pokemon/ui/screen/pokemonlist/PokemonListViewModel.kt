@@ -3,7 +3,7 @@ package com.example.pokemon.ui.screen.pokemonlist
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.pokemon.data.PokemonRepository
-import com.example.pokemon.data.model.PokemonResult
+import com.example.pokemon.data.model.PokemonResponse
 import com.example.pokemon.utils.AndroidChanneledDataFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.uniflow.core.flow.data.UIEvent
@@ -32,7 +32,7 @@ class PokemonListViewModel @Inject constructor(
 
 sealed class PokemonListState : UIState() {
     data class PokemonList(
-        val pagingDataFlow: Flow<PagingData<PokemonResult>>
+        val pagingDataFlow: Flow<PagingData<PokemonResponse>>
     ) : PokemonListState()
 }
 

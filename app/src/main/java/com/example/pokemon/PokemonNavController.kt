@@ -3,7 +3,7 @@ package com.example.pokemon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,7 +19,7 @@ fun PokemonNavController(navController: NavHostController) = NavHost(
     startDestination = Route.PokemonList.path
 ) {
     composable(Route.PokemonList.path) {
-        val viewModel: PokemonListViewModel = viewModel()
+        val viewModel: PokemonListViewModel = hiltViewModel()
 
         val state: UIState? by viewModel.states.observeAsState()
         val event: UIEvent? by viewModel.events.observeAsState()

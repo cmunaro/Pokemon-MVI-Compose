@@ -1,13 +1,17 @@
 package com.example.pokemon
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.pokemon.ui.screen.PokemonListScreen
-import com.example.pokemon.ui.screen.PokemonListViewModel
-import com.example.pokemon.ui.screen.Test
+import com.example.pokemon.ui.screen.pokemonlist.PokemonListScreen
+import com.example.pokemon.ui.screen.pokemonlist.PokemonListViewModel
+import io.uniflow.android.livedata.states
+import io.uniflow.core.flow.data.UIEvent
+import io.uniflow.core.flow.data.UIState
 
 @Composable
 fun PokemonNavController(navController: NavHostController) = NavHost(
@@ -16,17 +20,14 @@ fun PokemonNavController(navController: NavHostController) = NavHost(
 ) {
     composable(Route.PokemonList.path) {
         val viewModel: PokemonListViewModel = viewModel()
-        PokemonListScreen(
-            viewModel,
-            navController = navController
-        )
-    }
-    composable(Route.Test.path) {
-        Test(navController)
+
+        val state: UIState? by viewModel.states.observeAsState()
+        val event: UIEvent? by viewModel.events.observeAsState()
+
+        PokemonListScreen(state, event, viewModel.actionChannel)
     }
 }
 
 sealed class Route(val path: String) {
     object PokemonList : Route("pokemonList")
-    object Test: Route("test")
 }

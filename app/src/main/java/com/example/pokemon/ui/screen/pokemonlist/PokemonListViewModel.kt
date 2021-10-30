@@ -1,41 +1,43 @@
-package com.example.pokemon.ui.screen
+package com.example.pokemon.ui.screen.pokemonlist
 
 import androidx.lifecycle.viewModelScope
+import com.example.pokemon.utils.AndroidChanneledDataFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.uniflow.android.AndroidDataFlow
 import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.channels.ticker
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonListViewModel @Inject constructor() : AndroidDataFlow() {
+class PokemonListViewModel @Inject constructor() :
+    AndroidChanneledDataFlow<PokemonListViewModel>() {
+
     init {
         viewModelScope.launch {
-            ticker(3000, 3000)
+            ticker(2000, 2000)
                 .consumeEach {
-                    sendEvent(PokemonListEvent.OrcaLoca)
+                    publishEvent(PokemonListEvent.OrcaLoca())
                 }
         }
     }
 
     fun loadMessage() = action {
-        delay(2000)
-        setState(PokemonListState.Message("Hello World"))
+        setState(PokemonListState.Message(message = UUID.randomUUID().toString()))
     }
 
     override suspend fun onError(error: Exception, currentState: UIState) {}
 }
 
-sealed class PokemonListState: UIState() {
+
+sealed class PokemonListState : UIState() {
     data class Message(
         val message: String
-    ): PokemonListState()
+    ) : PokemonListState()
 }
 
-sealed class PokemonListEvent: UIEvent() {
-    object OrcaLoca: PokemonListEvent()
+sealed class PokemonListEvent : UIEvent() {
+    class OrcaLoca : PokemonListEvent()
 }

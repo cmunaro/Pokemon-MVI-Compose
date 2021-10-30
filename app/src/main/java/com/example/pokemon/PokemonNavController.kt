@@ -24,7 +24,7 @@ fun PokemonNavController(navController: NavHostController) = NavHost(
         val state: UIState? by viewModel.states.observeAsState()
         val event: UIEvent? by viewModel.events.observeAsState()
 
-        PokemonListScreen(state, event, viewModel.actionChannel)
+        PokemonListScreen(state, event, viewModel.intentChannel)
     }
 }
 

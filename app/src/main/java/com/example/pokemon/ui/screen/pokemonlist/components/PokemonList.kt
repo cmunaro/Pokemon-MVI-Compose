@@ -11,14 +11,17 @@ import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PokemonList(pagingDataFlow: Flow<PagingData<PokemonResponse>>) {
+fun PokemonList(
+    pagingDataFlow: Flow<PagingData<PokemonResponse>>,
+    onPokemonClick: (pokemonId: Int) -> Unit
+) {
     val lazyPokemons = pagingDataFlow.collectAsLazyPagingItems()
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         content = {
             items(lazyPokemons.itemCount) { index ->
                 lazyPokemons[index]?.let {
-                    PokemonCard(it.name, it.id)
+                    PokemonCard(it.name, it.id, onPokemonClick)
                 }
             }
         }

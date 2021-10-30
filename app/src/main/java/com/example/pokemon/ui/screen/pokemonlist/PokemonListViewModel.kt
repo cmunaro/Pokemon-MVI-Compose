@@ -4,9 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.pokemon.data.PokemonRepository
 import com.example.pokemon.data.model.PokemonResponse
-import com.example.pokemon.utils.AndroidChanneledDataFlow
+import com.example.pokemon.utils.AndroidIntentDataFlow
+import com.example.pokemon.utils.Intent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -15,18 +15,26 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
     private val repository: PokemonRepository
-) : AndroidChanneledDataFlow<PokemonListViewModel>() {
+) : AndroidIntentDataFlow() {
 
-    init {
-        viewModelScope.launch {
-            getPokemons()
+    override val intentHandler: ((Intent) -> Unit) = { intent ->
+        when (intent) {
+            is PokemonListIntent.ShowDetail -> showDetailsOf(intent.pokemonId)
         }
     }
 
-    fun getPokemons() = action {
+    init {
+        viewModelScope.launch { getPokemons() }
+    }
+
+    private fun getPokemons() = action {
         setState {
             PokemonListState.PokemonList(repository.getPokemons())
         }
+    }
+
+    private fun showDetailsOf(pokemonId: Int) = action {
+
     }
 }
 
@@ -36,5 +44,6 @@ sealed class PokemonListState : UIState() {
     ) : PokemonListState()
 }
 
-sealed class PokemonListEvent : UIEvent() {
+sealed interface PokemonListIntent : Intent {
+    data class ShowDetail(val pokemonId: Int) : PokemonListIntent
 }

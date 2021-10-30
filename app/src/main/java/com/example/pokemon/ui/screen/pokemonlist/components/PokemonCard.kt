@@ -1,6 +1,7 @@
 package com.example.pokemon.ui.screen.pokemonlist.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -20,13 +21,17 @@ import com.example.pokemon.ui.theme.PokemonTheme
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 
+private const val POKEMON_IMAGE_BASE_URL =
+    "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/"
+
 @Composable
-fun PokemonCard(pokemonName: String, id: Int) {
+fun PokemonCard(pokemonName: String, pokemonId: Int, onClick: (pokemonId: Int) -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
         modifier = Modifier
             .padding(8.dp)
+            .clickable { onClick(pokemonId) }
     ) {
         Column {
             GlideImage(
@@ -34,9 +39,7 @@ fun PokemonCard(pokemonName: String, id: Int) {
                     .fillMaxSize()
                     .aspectRatio(1f),
                 failure = { UnknownImage() },
-                imageModel = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${
-                    id.toString().padStart(3, '0')
-                }.png",
+                imageModel = "$POKEMON_IMAGE_BASE_URL${pokemonId.toString().padStart(3, '0')}.png",
                 shimmerParams = ShimmerParams(
                     baseColor = MaterialTheme.colors.surface,
                     highlightColor = Color.LightGray,
@@ -68,8 +71,8 @@ fun UnknownImage() {
 
 @Preview
 @Composable
-fun previewPokemonCard() {
+fun PreviewPokemonCard() {
     PokemonTheme {
-        PokemonCard("Bulbasaur", 1)
+        PokemonCard("Bulbasaur", 1) {}
     }
 }

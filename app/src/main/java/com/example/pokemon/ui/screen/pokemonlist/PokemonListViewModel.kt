@@ -1,14 +1,14 @@
 package com.example.pokemon.ui.screen.pokemonlist
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.paging.map
+import androidx.paging.PagingData
 import com.example.pokemon.data.PokemonRepository
+import com.example.pokemon.data.model.PokemonResult
 import com.example.pokemon.utils.AndroidChanneledDataFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,22 +19,22 @@ class PokemonListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sendEvent(PokemonListEvent.ReadyToFetch)
+            getPokemons()
         }
     }
 
     fun getPokemons() = action {
-        repository.getPokemons()
-            .collect {
-                Log.d("XENA", it.map { it.name }.toString())
-            }
+        setState {
+            PokemonListState.PokemonList(repository.getPokemons())
+        }
     }
 }
 
 sealed class PokemonListState : UIState() {
-
+    data class PokemonList(
+        val pagingDataFlow: Flow<PagingData<PokemonResult>>
+    ) : PokemonListState()
 }
 
 sealed class PokemonListEvent : UIEvent() {
-    object ReadyToFetch: PokemonListEvent()
 }

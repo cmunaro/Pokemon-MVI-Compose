@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 class PokemonRepository(private val pokemonAPI: PokemonAPI) {
 
     fun getPokemons(): Flow<PagingData<PokemonResult>> = Pager(
-        config = PagingConfig(enablePlaceholders = false, pageSize = 25),
+        config = PagingConfig(enablePlaceholders = false, pageSize = 20),
         pagingSourceFactory = {
             PokemonDataSource(pokemonAPI)
         }

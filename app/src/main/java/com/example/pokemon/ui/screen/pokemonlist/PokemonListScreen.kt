@@ -1,6 +1,7 @@
 package com.example.pokemon.ui.screen.pokemonlist
 
 import androidx.compose.runtime.Composable
+import com.example.pokemon.ui.screen.pokemonlist.components.PokemonList
 import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.channels.SendChannel
@@ -12,13 +13,9 @@ fun PokemonListScreen(
     event: UIEvent?,
     actionChannel: SendChannel<KFunction1<PokemonListViewModel, *>>
 ) {
-    event?.let {
-        when (it) {
-            is PokemonListEvent.ReadyToFetch -> actionChannel.trySend(PokemonListViewModel::getPokemons)
-            else -> {
-            }
+    state?.let {
+        when(it) {
+            is PokemonListState.PokemonList -> PokemonList(it.pagingDataFlow)
         }
     }
-
-
 }

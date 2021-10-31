@@ -5,6 +5,7 @@ import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.utils.AndroidIntentDataFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.uniflow.core.flow.data.UIState
+import org.w3c.dom.TypeInfo
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,3 +34,8 @@ data class PokemonDetailState(
     val pokemon: Pokemon? = null,
     val error: Boolean = false
 ) : UIState()
+
+data class PokemonViewInformation(
+    val name: String,
+    val types: List<TypeInfo>
+)

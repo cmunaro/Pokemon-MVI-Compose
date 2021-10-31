@@ -37,7 +37,7 @@ fun PokemonNavController(navController: NavHostController, routerChannel: Channe
     composable(Route.PokemonDetail.path) {
         val pokemonId = remember { it.arguments?.getString("id") ?: return@composable }
         val viewModel: PokemonDetailViewModel = hiltViewModel()
-        LaunchedEffect(pokemonId) { viewModel.pokemonId = pokemonId }
+        LaunchedEffect(pokemonId) { viewModel.pokemonId = pokemonId.toInt() }
 
         PokemonDetailScreen()
     }

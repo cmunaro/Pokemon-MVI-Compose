@@ -32,6 +32,7 @@ fun PokemonStats(stats: List<StatInfo>?) {
                 fontSize = 26.sp
             )
         )
+        Spacer(modifier = Modifier.requiredHeight(16.dp))
         StatList(stats)
     }
 }
@@ -51,11 +52,12 @@ fun StatInfo(stat: StatInfo) {
             .padding(vertical = 4.dp, horizontal = 36.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = stat.stat.name)
+        Text(text = stat.stat.shortName)
         LinearProgressIndicator(
-            progress = 0.5f,
+            progress = stat.baseStat / stat.stat.maxValue.toFloat(),
             backgroundColor = Color.LightGray,
-            modifier = Modifier.height(22.dp)
+            modifier = Modifier
+                .height(22.dp)
                 .clip(RoundedCornerShape(20.dp)),
         )
     }

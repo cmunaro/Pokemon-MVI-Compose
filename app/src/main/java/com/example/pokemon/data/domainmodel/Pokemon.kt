@@ -24,16 +24,16 @@ data class StatInfo(
 ) : Parcelable
 
 @Parcelize
-enum class Stat : Parcelable {
-    HP,
-    ATTACK,
-    DEFENSE,
-    SPECIAL_ATTACK,
-    SPECIAL_DEFENSE,
-    SPEED,
-    ACCURACY,
-    EVASION,
-    UNKNOWN
+enum class Stat(val maxValue: Int, val shortName: String) : Parcelable {
+    HP(300, "HP"),
+    ATTACK(300, "ATK"),
+    DEFENSE(300, "DEF"),
+    SPECIAL_ATTACK(300, "S ATK"),
+    SPECIAL_DEFENSE(300, "S DEF"),
+    SPEED(300, "VEL"),
+    ACCURACY(300, "ACC"),
+    EVASION(300, "EV"),
+    UNKNOWN(0, "UNK")
 }
 
 @Parcelize

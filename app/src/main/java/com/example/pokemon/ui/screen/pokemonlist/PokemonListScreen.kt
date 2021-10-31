@@ -10,7 +10,6 @@ import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.ui.screen.pokemonlist.components.PokemonList
 import com.example.pokemon.ui.theme.PokemonTheme
 import com.example.pokemon.utils.Intent
-import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.SendChannel
@@ -19,7 +18,6 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun PokemonListScreen(
     state: UIState?,
-    event: UIEvent?,
     actionChannel: SendChannel<Intent>
 ) {
     Scaffold(topBar = {
@@ -56,7 +54,6 @@ fun PokemonListScreenPreview() {
     PokemonTheme {
         PokemonListScreen(
             state = pokemonListState,
-            event = null, 
             actionChannel = Channel()
         )
     }

@@ -14,7 +14,6 @@ import com.example.pokemon.ui.screen.pokemondetail.PokemonDetailViewModel
 import com.example.pokemon.ui.screen.pokemonlist.PokemonListScreen
 import com.example.pokemon.ui.screen.pokemonlist.PokemonListViewModel
 import io.uniflow.android.livedata.states
-import io.uniflow.core.flow.data.UIEvent
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -29,9 +28,9 @@ fun PokemonNavController(navController: NavHostController, routerChannel: Channe
         val viewModel: PokemonListViewModel = hiltViewModel()
         LaunchedEffect(routerChannel) { viewModel.routerChannel = routerChannel }
         val state: UIState? by viewModel.states.observeAsState()
-        val event: UIEvent? by viewModel.events.observeAsState()
+        //val event: UIEvent? by viewModel.events.observeAsState()
 
-        PokemonListScreen(state, event, viewModel.intentChannel)
+        PokemonListScreen(state, viewModel.intentChannel)
     }
 
     composable(Route.PokemonDetail.path) {

@@ -43,7 +43,7 @@ class PokemonListViewModel @Inject constructor(
 
 sealed class PokemonListState : UIState() {
     data class PokemonList(
-        val pagingDataFlow: Flow<PagingData<Pokemon>>
+        val pagingDataFlow: Flow<PagingData<Pokemon>>?
     ) : PokemonListState()
 }
 

@@ -7,8 +7,11 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,28 +24,35 @@ import kotlinx.coroutines.runBlocking
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PokemonList(
-    pagingDataFlow: Flow<PagingData<Pokemon>>,
+    pagingDataFlow: Flow<PagingData<Pokemon>>?,
     isPreview: Boolean = false,  // Needed for a bug in GlideImage that makes it not load `previewPlaceholder`
     onPokemonClick: (pokemonId: Int) -> Unit
 ) {
     val listState = rememberLazyListState()
     val scrollState = rememberScrollState()
 
-    val lazyPokemons = pagingDataFlow.collectAsLazyPagingItems()
-    LazyVerticalGrid(
-        modifier = Modifier.scrollable(scrollState, Orientation.Vertical),
-        state = listState,
-        cells = GridCells.Fixed(2),
-        content = {
-            items(lazyPokemons.itemCount) { index ->
-                lazyPokemons[index]?.let {
-                    PokemonCard(it.name, it.id, onPokemonClick, isPreview)
+    val lazyPokemons = pagingDataFlow?.collectAsLazyPagingItems()
+    if (lazyPokemons == null) {
+        Text(
+            text = "There was a problem fetching pokemons!",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h3
+        )
+    } else {
+        LazyVerticalGrid(
+            modifier = Modifier.scrollable(scrollState, Orientation.Vertical),
+            state = listState,
+            cells = GridCells.Fixed(2),
+            content = {
+                items(lazyPokemons.itemCount) { index ->
+                    lazyPokemons[index]?.let {
+                        PokemonCard(it.name, it.id, onPokemonClick, isPreview)
+                    }
                 }
             }
-        }
-    )
+        )
+    }
 }
-
 
 @Preview
 @Composable

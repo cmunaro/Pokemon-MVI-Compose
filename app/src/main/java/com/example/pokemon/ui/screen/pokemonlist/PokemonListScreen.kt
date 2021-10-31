@@ -18,7 +18,8 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun PokemonListScreen(
     state: UIState?,
-    actionChannel: SendChannel<Intent>
+    actionChannel: SendChannel<Intent>,
+    disableImageFetching: Boolean = false
 ) {
     Scaffold(topBar = {
         TopAppBar(
@@ -28,6 +29,7 @@ fun PokemonListScreen(
             when(it) {
                 is PokemonListState.PokemonList -> PokemonList(
                     pagingDataFlow = it.pagingDataFlow,
+                    disableImageFetching = disableImageFetching
                 ) { clickedPokemonId ->
                     actionChannel.trySend(PokemonListIntent.ShowDetail(clickedPokemonId))
                 }

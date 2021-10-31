@@ -17,7 +17,7 @@ import io.uniflow.core.flow.data.UIState
 @Composable
 fun PokemonDetailScreen(
     state: UIState?,
-    isPreview: Boolean = false,
+    disableImageFetching: Boolean = false,
     onBack: () -> Unit
 ) {
     val pokemon = remember(state) { (state as? PokemonDetailState)?.pokemon }
@@ -31,7 +31,7 @@ fun PokemonDetailScreen(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            PokemonHeader(pokemon, isPreview)
+            PokemonHeader(pokemon, disableImageFetching)
             if (pokemon != null) {
                 PokemonName(pokemon.name)
                 PokemonTypeList(pokemon.types)

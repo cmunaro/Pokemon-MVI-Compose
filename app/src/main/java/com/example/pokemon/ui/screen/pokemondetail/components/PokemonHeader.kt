@@ -18,7 +18,7 @@ import com.example.pokemon.ui.screen.pokemonlist.components.PokemonImage
 import com.example.pokemon.ui.screen.pokemonlist.components.UnknownPokemonImage
 
 @Composable
-fun PokemonHeader(pokemon: Pokemon?, isPreview: Boolean = false) {
+fun PokemonHeader(pokemon: Pokemon?, disableImageFetching: Boolean = false) {
     Surface {
         Box(
             modifier = Modifier
@@ -27,7 +27,7 @@ fun PokemonHeader(pokemon: Pokemon?, isPreview: Boolean = false) {
                 .clip(RoundedCornerShape(0, 0, 25, 25))
                 .background(Color.Red)
         ) {
-            if (pokemon == null || isPreview) {
+            if (pokemon == null || disableImageFetching) {
                 UnknownPokemonImage(modifier = Modifier.align(Alignment.Center))
             } else {
                 PokemonImage(

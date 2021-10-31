@@ -25,7 +25,7 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun PokemonList(
     pagingDataFlow: Flow<PagingData<Pokemon>>?,
-    isPreview: Boolean = false,  // Needed for a bug in GlideImage that makes it not load `previewPlaceholder`
+    disableImageFetching: Boolean = false,  // Needed for a bug in GlideImage that makes it not load `previewPlaceholder`
     onPokemonClick: (pokemonId: Int) -> Unit
 ) {
     val listState = rememberLazyListState()
@@ -46,7 +46,7 @@ fun PokemonList(
             content = {
                 items(lazyPokemons.itemCount) { index ->
                     lazyPokemons[index]?.let {
-                        PokemonCard(it.name, it.id, onPokemonClick, isPreview)
+                        PokemonCard(it.name, it.id, onPokemonClick, disableImageFetching)
                     }
                 }
             }
@@ -72,7 +72,7 @@ fun PokemonListPreview() {
     PokemonTheme {
         PokemonList(
             pagingDataFlow = pagingFlow,
-            isPreview = true
+            disableImageFetching = true
         ) {}
     }
 

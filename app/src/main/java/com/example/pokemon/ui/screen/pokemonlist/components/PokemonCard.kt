@@ -19,7 +19,7 @@ fun PokemonCard(
     pokemonName: String,
     pokemonId: Int,
     onClick: (pokemonId: Int) -> Unit,
-    isPreview: Boolean = false
+    disableImageFetching: Boolean = false
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -29,7 +29,7 @@ fun PokemonCard(
             .clickable { onClick(pokemonId) }
     ) {
         Column {
-            if (isPreview) {
+            if (disableImageFetching) {
                 UnknownPokemonImage()
             } else {
                 PokemonImage(pokemonId = pokemonId)
@@ -48,7 +48,7 @@ fun PokemonCard(
 @Composable
 fun PreviewPokemonCard() {
     PokemonTheme {
-        PokemonCard("Bulbasaur", 1, {}, isPreview = true)
+        PokemonCard("Bulbasaur", 1, {}, disableImageFetching = true)
     }
 }
 
@@ -56,6 +56,6 @@ fun PreviewPokemonCard() {
 @Composable
 fun PreviewPokemonCardDark() {
     PokemonTheme(darkTheme = true) {
-        PokemonCard("Bulbasaur", 1, {}, isPreview = true)
+        PokemonCard("Bulbasaur", 1, {}, disableImageFetching = true)
     }
 }

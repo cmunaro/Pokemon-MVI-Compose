@@ -36,7 +36,10 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun setupRouter(scope: CoroutineScope, navController: NavHostController): Channel<Route> {
+    private fun setupRouter(
+        scope: CoroutineScope,
+        navController: NavHostController
+    ): Channel<Route> {
         val routerChannel = Channel<Route>()
         scope.launchOnMain {
             routerChannel.consumeEach {

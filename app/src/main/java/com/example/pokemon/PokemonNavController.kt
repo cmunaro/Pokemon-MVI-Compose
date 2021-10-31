@@ -39,7 +39,9 @@ fun PokemonNavController(navController: NavHostController, routerChannel: Channe
         val viewModel: PokemonDetailViewModel = hiltViewModel()
         LaunchedEffect(pokemonId) { viewModel.pokemonId = pokemonId.toInt() }
 
-        PokemonDetailScreen()
+        PokemonDetailScreen {
+            navController.popBackStack()
+        }
     }
 }
 

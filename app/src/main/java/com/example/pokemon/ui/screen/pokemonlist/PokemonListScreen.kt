@@ -1,5 +1,8 @@
 package com.example.pokemon.ui.screen.pokemonlist
 
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
@@ -19,12 +22,17 @@ fun PokemonListScreen(
     event: UIEvent?,
     actionChannel: SendChannel<Intent>
 ) {
-    state?.let {
-        when(it) {
-            is PokemonListState.PokemonList -> PokemonList(
-                pagingDataFlow = it.pagingDataFlow,
-            ) { clickedPokemonId ->
-                actionChannel.trySend(PokemonListIntent.ShowDetail(clickedPokemonId))
+    Scaffold(topBar = {
+        TopAppBar(
+        title = { Text(text = "Pokedex") }
+    ) }) {
+        state?.let {
+            when(it) {
+                is PokemonListState.PokemonList -> PokemonList(
+                    pagingDataFlow = it.pagingDataFlow,
+                ) { clickedPokemonId ->
+                    actionChannel.trySend(PokemonListIntent.ShowDetail(clickedPokemonId))
+                }
             }
         }
     }

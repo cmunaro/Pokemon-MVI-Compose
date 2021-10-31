@@ -69,7 +69,7 @@ fun PokemonResponse.toPokemon(): Pokemon {
         stats = this.stats.map { statResponse ->
             StatInfo(
                 stat = Stat.values().firstOrNull {
-                    it.name.lowercase().replace("_", "") == it.name.lowercase().replace("-", "")
+                    it.name.lowercase().replace("_", "") == statResponse.stat.name.lowercase().replace("-", "")
                 } ?: Stat.UNKNOWN,
                 baseStat = statResponse.baseStat
             )

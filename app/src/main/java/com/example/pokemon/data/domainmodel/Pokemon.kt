@@ -1,8 +1,9 @@
-package com.example.pokemon.data.model
+package com.example.pokemon.data.domainmodel
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.pokemon.data.model.PokemonResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -2,8 +2,8 @@ package com.example.pokemon.data.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.example.pokemon.data.model.StatInfo
-import com.example.pokemon.data.model.Type
+import com.example.pokemon.data.domainmodel.StatInfo
+import com.example.pokemon.data.domainmodel.Type
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 

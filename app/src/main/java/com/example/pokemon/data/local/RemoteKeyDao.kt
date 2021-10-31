@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.pokemon.data.model.RemoteKey
+import com.example.pokemon.data.domainmodel.RemoteKey
 
 @Dao
 interface RemoteKeyDao {

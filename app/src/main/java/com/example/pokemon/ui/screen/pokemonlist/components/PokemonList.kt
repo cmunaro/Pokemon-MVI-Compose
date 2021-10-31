@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.pokemon.data.model.Pokemon
+import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.ui.theme.PokemonTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

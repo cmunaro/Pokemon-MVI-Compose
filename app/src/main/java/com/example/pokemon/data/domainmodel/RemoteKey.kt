@@ -1,4 +1,4 @@
-package com.example.pokemon.data.model
+package com.example.pokemon.data.domainmodel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

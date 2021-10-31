@@ -3,7 +3,7 @@ package com.example.pokemon.ui.screen.pokemonlist
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
-import com.example.pokemon.data.model.Pokemon
+import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.ui.screen.pokemonlist.components.PokemonList
 import com.example.pokemon.ui.theme.PokemonTheme
 import com.example.pokemon.utils.Intent

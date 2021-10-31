@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.example.pokemon.Route
 import com.example.pokemon.data.PokemonRepository
-import com.example.pokemon.data.model.Pokemon
+import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.utils.AndroidIntentDataFlow
 import com.example.pokemon.utils.Intent
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.pokemon.data.local.PokemonDatabase
-import com.example.pokemon.data.model.Pokemon
+import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.data.remote.PokemonAPI
 import com.example.pokemon.data.remote.PokemonDataSource
 import kotlinx.coroutines.flow.Flow

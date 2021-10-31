@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.paging.*
 import androidx.room.withTransaction
 import com.bumptech.glide.load.HttpException
+import com.example.pokemon.data.domainmodel.Pokemon
+import com.example.pokemon.data.domainmodel.RemoteKey
+import com.example.pokemon.data.domainmodel.toPokemon
 import com.example.pokemon.data.local.PokemonDao
 import com.example.pokemon.data.local.PokemonDatabase
 import com.example.pokemon.data.local.RemoteKeyDao

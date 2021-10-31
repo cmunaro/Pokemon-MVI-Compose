@@ -28,7 +28,7 @@ fun PokemonTypeList(types: List<Type>) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PokemonTypeListPreview() {
     PokemonTheme {

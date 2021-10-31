@@ -5,7 +5,7 @@ import com.example.pokemon.ui.theme.*
 
 object PokemonTypeUtils {
     fun getTypeColor(type: String): Color {
-        return when (type) {
+        return when (type.lowercase()) {
             "fighting" -> fighting
             "flying" -> flying
             "poison" -> poison

@@ -7,19 +7,8 @@ data class PokemonResponse(
     var name: String = "",
     var height: Int = 0,
     var weight: Int = 0,
-    var abilities: List<AbilityResponse> = emptyList(),
     var stats: List<StatResponse> = emptyList(),
     var types: List<TypeResponse> = emptyList()
-)
-
-data class AbilityResponse(
-    val ability: AbilityInfoResponse,
-    @Json(name = "is_hidden") val isHidden: Boolean,
-    val slot: Int
-)
-
-data class AbilityInfoResponse(
-    val name: String
 )
 
 data class StatResponse(

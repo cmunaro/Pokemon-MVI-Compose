@@ -1,4 +1,4 @@
-package com.example.pokemon.data
+package com.example.pokemon.data.remote
 
 import com.example.pokemon.data.model.PokemonListResponse
 import com.example.pokemon.data.model.PokemonResponse

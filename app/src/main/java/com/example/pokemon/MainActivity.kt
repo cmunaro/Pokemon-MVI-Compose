@@ -12,7 +12,6 @@ import com.example.pokemon.ui.theme.PokemonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.uniflow.core.threading.launchOnMain
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 
@@ -23,7 +22,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-
             val scope = rememberCoroutineScope()
             val routerChannel = setupRouter(scope, navController)
 
@@ -38,8 +36,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    fun setupRouter(scope: CoroutineScope, navController: NavHostController): Channel<Route> {
+    private fun setupRouter(scope: CoroutineScope, navController: NavHostController): Channel<Route> {
         val routerChannel = Channel<Route>()
         scope.launchOnMain {
             routerChannel.consumeEach {

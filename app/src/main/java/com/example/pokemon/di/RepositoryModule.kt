@@ -1,7 +1,8 @@
 package com.example.pokemon.di
 
-import com.example.pokemon.data.PokemonAPI
 import com.example.pokemon.data.PokemonRepository
+import com.example.pokemon.data.local.PokemonDatabase
+import com.example.pokemon.data.remote.PokemonAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesPokemonRepository(apiService: PokemonAPI) = PokemonRepository(apiService)
+    fun providesPokemonRepository(apiService: PokemonAPI, pokemonDatabase: PokemonDatabase) =
+        PokemonRepository(apiService, pokemonDatabase)
 
 }

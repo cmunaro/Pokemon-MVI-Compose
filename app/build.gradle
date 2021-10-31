@@ -104,6 +104,12 @@ dependencies {
     testImplementation "org.uniflow-kt:uniflow-test:$uniflow"
     androidTestImplementation "org.uniflow-kt:uniflow-android-test:$uniflow"
 
+    // Room
+    def room_version = '2.3.0'
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
     // Compose tests
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"

@@ -2,6 +2,7 @@ package com.example.pokemon.ui.screen.pokemonlist
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.pokemon.Route
 import com.example.pokemon.data.PokemonRepository
 import com.example.pokemon.data.domainmodel.Pokemon
@@ -31,7 +32,7 @@ class PokemonListViewModel @Inject constructor(
 
     private fun getPokemons() = action {
         setState {
-            PokemonListState.PokemonList(repository.getPokemons())
+            PokemonListState.PokemonList(repository.getPokemons().cachedIn(viewModelScope))
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.pokemon.data.remote
 
+import android.util.Log
 import androidx.paging.*
 import androidx.room.withTransaction
 import com.bumptech.glide.load.HttpException
@@ -28,12 +29,12 @@ class PokemonDataSource(
         }
         val loadSize = if (page == 0) state.config.initialLoadSize else state.config.pageSize
         try {
-            val pokemons: List<Pokemon> = getPokemons(loadSize, page)
+            val pokemons: List<Pokemon> = getPokemonList(loadSize, page)
             val endOfList = pokemons.isEmpty()
             pokemonDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    remoteKeyDao.clearAll()
                     pokemonDao.clearAll()
+                    remoteKeyDao.clearAll()
                 }
                 val prevKey = if (page == 0) null else page - loadSize
                 val nextKey = if (endOfList) null else page + loadSize
@@ -42,6 +43,7 @@ class PokemonDataSource(
                 }
                 remoteKeyDao.insertRemote(keys)
                 pokemonDao.insertAll(pokemons)
+                Log.d("XENA", "PREV: $prevKey   NEXT: $nextKey")
             }
             return MediatorResult.Success(endOfPaginationReached = endOfList)
         } catch (e: IOException) {
@@ -51,7 +53,7 @@ class PokemonDataSource(
         }
     }
 
-    private suspend fun getPokemons(loadSize: Int, page: Int): List<Pokemon> =
+    private suspend fun getPokemonList(loadSize: Int, page: Int): List<Pokemon> =
         withContext(Dispatchers.IO) {
             val pokemonListResponse: PokemonListResponse =
                 pokemonApi.getPokemons(limit = loadSize, offset = page)
@@ -72,7 +74,8 @@ class PokemonDataSource(
         return when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRefreshRemoteKey(state)
-                remoteKeys?.nextKey?.minus(state.config.pageSize) ?: 0
+                remoteKeys?.nextKey?.minus(state.config.pageSize)
+                    ?.coerceAtLeast(0) ?: 0
             }
             LoadType.PREPEND -> {
                 getFirstRemoteKey(state)?.prevKey

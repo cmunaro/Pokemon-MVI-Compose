@@ -7,7 +7,7 @@ import com.example.pokemon.data.model.Pokemon
 import com.example.pokemon.data.model.RemoteKey
 
 @Database(entities = [Pokemon::class, RemoteKey::class], version = 1)
-@TypeConverters(RoomConverter::class)
+@TypeConverters(RoomTypeConverter::class)
 abstract class PokemonDatabase : RoomDatabase() {
     abstract fun pokemonDao(): PokemonDao
     abstract fun remoteKeyDao(): RemoteKeyDao

@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
             val scope = rememberCoroutineScope()
             val routerChannel = setupRouter(scope, navController)
 
-            PokemonTheme {
+            PokemonTheme(darkTheme = true) {
                 Surface(color = MaterialTheme.colors.background) {
                     PokemonNavController(
                         routerChannel = routerChannel,

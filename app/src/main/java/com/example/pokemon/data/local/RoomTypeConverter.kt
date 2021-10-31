@@ -8,7 +8,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
 @ProvidedTypeConverter
-class RoomConverter(val moshi: Moshi) {
+class RoomTypeConverter(val moshi: Moshi) {
     @TypeConverter
     fun fromListStatInfo(data: List<StatInfo>): String {
         val type = Types.newParameterizedType(List::class.java, StatInfo::class.java)

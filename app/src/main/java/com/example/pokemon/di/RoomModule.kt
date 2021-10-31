@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.pokemon.data.local.PokemonDao
 import com.example.pokemon.data.local.PokemonDatabase
 import com.example.pokemon.data.local.RemoteKeyDao
-import com.example.pokemon.data.local.RoomConverter
+import com.example.pokemon.data.local.RoomTypeConverter
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -20,19 +20,19 @@ object RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoomConverter(moshi: Moshi): RoomConverter = RoomConverter(moshi)
+    fun provideRoomTypeConverter(moshi: Moshi): RoomTypeConverter = RoomTypeConverter(moshi)
 
     @Provides
     @Singleton
     fun providePokemonDatabase(
         @ApplicationContext appContext: Context,
-        roomConverter: RoomConverter
+        RoomTypeConverter: RoomTypeConverter
     ): PokemonDatabase {
         return Room.databaseBuilder(
             appContext,
             PokemonDatabase::class.java,
             "pokemon"
-        ).addTypeConverter(roomConverter).build()
+        ).addTypeConverter(RoomTypeConverter).build()
     }
 
     @Provides

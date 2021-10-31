@@ -9,9 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pokemon.data.domainmodel.Pokemon
+import com.example.pokemon.data.domainmodel.Type
 import com.example.pokemon.ui.screen.pokemondetail.components.PokemonDetailTopAppBar
 import com.example.pokemon.ui.screen.pokemondetail.components.PokemonHeader
 import com.example.pokemon.ui.screen.pokemondetail.components.PokemonName
+import com.example.pokemon.ui.screen.pokemondetail.components.PokemonTypeList
 import com.example.pokemon.ui.theme.PokemonTheme
 import io.uniflow.core.flow.data.UIState
 
@@ -33,8 +35,10 @@ fun PokemonDetailScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PokemonHeader(pokemon, isPreview)
-            if (pokemon != null) PokemonName(pokemon.name)
-
+            if (pokemon != null) {
+                PokemonName(pokemon.name)
+                PokemonTypeList(pokemon.types)
+            }
         }
     }
 }
@@ -42,7 +46,10 @@ fun PokemonDetailScreen(
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailScreenPreview() {
-    val pokemon = Pokemon(name = "Charmender")
+    val pokemon = Pokemon(
+        name = "Charmender",
+        types = listOf(Type.DRAGON, Type.FIRE, Type.ELECTRIC)
+    )
     val state = PokemonDetailState(pokemon = pokemon)
     PokemonTheme {
         PokemonDetailScreen(state, true) {}
@@ -52,7 +59,10 @@ fun PokemonDetailScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 fun PokemonDetailScreenPreviewDark() {
-    val pokemon = Pokemon(name = "Charmender")
+    val pokemon = Pokemon(
+        name = "Charmender",
+        types = listOf(Type.DRAGON, Type.FIRE, Type.ELECTRIC, Type.STEEL)
+    )
     val state = PokemonDetailState(pokemon = pokemon)
     PokemonTheme(darkTheme = true) {
         PokemonDetailScreen(state, true) {}

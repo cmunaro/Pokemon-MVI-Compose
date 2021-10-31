@@ -10,10 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.data.domainmodel.Type
-import com.example.pokemon.ui.screen.pokemondetail.components.PokemonDetailTopAppBar
-import com.example.pokemon.ui.screen.pokemondetail.components.PokemonHeader
-import com.example.pokemon.ui.screen.pokemondetail.components.PokemonName
-import com.example.pokemon.ui.screen.pokemondetail.components.PokemonTypeList
+import com.example.pokemon.ui.screen.pokemondetail.components.*
 import com.example.pokemon.ui.theme.PokemonTheme
 import io.uniflow.core.flow.data.UIState
 
@@ -39,6 +36,7 @@ fun PokemonDetailScreen(
                 PokemonName(pokemon.name)
                 PokemonTypeList(pokemon.types)
             }
+            PokemonStats(pokemon?.stats)
         }
     }
 }
@@ -48,7 +46,7 @@ fun PokemonDetailScreen(
 fun PokemonDetailScreenPreview() {
     val pokemon = Pokemon(
         name = "Charmender",
-        types = listOf(Type.DRAGON, Type.FIRE, Type.ELECTRIC)
+        types = listOf(Type.DRAGON, Type.FIRE, Type.ELECTRIC, Type.STEEL)
     )
     val state = PokemonDetailState(pokemon = pokemon)
     PokemonTheme {

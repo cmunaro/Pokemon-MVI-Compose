@@ -13,7 +13,7 @@ fun PokemonName(name: String) {
         style = MaterialTheme.typography.h4.copy(
             color = MaterialTheme.colors.onSurface,
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp
+            fontSize = 38.sp
         )
     )
 }

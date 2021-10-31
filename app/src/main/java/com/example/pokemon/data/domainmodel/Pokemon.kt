@@ -20,7 +20,6 @@ data class Pokemon(
 @Parcelize
 data class StatInfo(
     @PrimaryKey val stat: Stat,
-    val effort: Int,
     val baseStat: Int,
 ) : Parcelable
 
@@ -72,7 +71,6 @@ fun PokemonResponse.toPokemon(): Pokemon {
                 stat = Stat.values().firstOrNull {
                     it.name.lowercase().replace("_", "") == it.name.lowercase().replace("-", "")
                 } ?: Stat.UNKNOWN,
-                effort = statResponse.effort,
                 baseStat = statResponse.baseStat
             )
         },

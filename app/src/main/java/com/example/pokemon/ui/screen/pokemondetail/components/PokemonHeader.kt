@@ -14,8 +14,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.pokemon.data.domainmodel.Pokemon
-import com.example.pokemon.ui.screen.pokemonlist.components.PokemonImage
-import com.example.pokemon.ui.screen.pokemonlist.components.UnknownPokemonImage
+import com.example.pokemon.ui.shared.PokemonImage
+import com.example.pokemon.ui.shared.UnknownPokemonImage
 
 @Composable
 fun PokemonHeader(pokemon: Pokemon?, disableImageFetching: Boolean = false) {

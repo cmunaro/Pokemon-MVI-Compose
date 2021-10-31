@@ -1,4 +1,4 @@
-package com.example.pokemon.ui.screen.pokemonlist.components
+package com.example.pokemon.ui.shared
 
 import androidx.compose.foundation.Image
 import androidx.compose.material.MaterialTheme

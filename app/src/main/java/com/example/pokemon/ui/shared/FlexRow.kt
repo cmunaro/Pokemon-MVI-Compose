@@ -1,4 +1,4 @@
-package com.example.pokemon.ui.screen.pokemondetail.components
+package com.example.pokemon.ui.shared
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

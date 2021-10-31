@@ -1,13 +1,16 @@
 package com.example.pokemon.ui.screen.pokemondetail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.pokemon.data.domainmodel.Pokemon
 import com.example.pokemon.data.domainmodel.Type
 import com.example.pokemon.ui.screen.pokemondetail.components.*
@@ -33,9 +36,12 @@ fun PokemonDetailScreen(
         ) {
             PokemonHeader(pokemon, disableImageFetching)
             if (pokemon != null) {
+                Spacer(modifier = Modifier.requiredHeight(8.dp))
                 PokemonName(pokemon.name)
+                Spacer(modifier = Modifier.requiredHeight(24.dp))
                 PokemonTypeList(pokemon.types)
             }
+            Spacer(modifier = Modifier.requiredHeight(32.dp))
             PokemonStats(pokemon?.stats)
         }
     }

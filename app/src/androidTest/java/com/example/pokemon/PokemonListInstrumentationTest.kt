@@ -35,6 +35,7 @@ class PokemonListInstrumentationTest {
         composeTestRule.setContent {
             PokemonListScreen(state = pokemonListState, Channel(), disableImageFetching = true)
         }
+        composeTestRule.waitForIdle()
 
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("bulbasaur").assertIsDisplayed()

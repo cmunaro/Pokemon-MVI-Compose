@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.example.pokemon.data.PokemonRepository
 import com.example.pokemon.data.domainmodel.Pokemon
-import com.example.pokemon.ui.screen.pokemonlist.PokemonListIntent
 import com.example.pokemon.ui.screen.pokemonlist.PokemonListState
 import com.example.pokemon.ui.screen.pokemonlist.PokemonListViewModel
+import com.example.pokemon.ui.screen.pokemonlist.RequestShowDetail
 import com.example.pokemon.utils.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
@@ -69,7 +69,7 @@ class PokemonListViewModelTest {
     fun `go to details page`() = runBlocking {
         viewmodel.routerChannel!!.consumeAsFlow().test() {
             val pokemonId = 123
-            viewmodel.intentChannel.send(PokemonListIntent.ShowDetail(pokemonId))
+            viewmodel.intentChannel.send(RequestShowDetail(pokemonId))
 
             val route = awaitItem()
 

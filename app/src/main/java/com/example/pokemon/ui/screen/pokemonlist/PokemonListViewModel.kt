@@ -20,7 +20,8 @@ class PokemonListViewModel @Inject constructor(
 
     override val intentHandler: ((Intent) -> Unit) = { intent ->
         when (intent) {
-            is PokemonListIntent.ShowDetail -> showDetailsOf(intent.pokemonId)
+            is RequestShowDetail -> showDetailsOf(intent.pokemonId)
+            is RequestFetchPokemons -> getPokemons()
         }
     }
 
@@ -47,6 +48,5 @@ sealed class PokemonListState : UIState() {
     ) : PokemonListState()
 }
 
-sealed interface PokemonListIntent : Intent {
-    data class ShowDetail(val pokemonId: Int) : PokemonListIntent
-}
+data class RequestShowDetail(val pokemonId: Int) : Intent
+object RequestFetchPokemons : Intent

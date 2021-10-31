@@ -20,8 +20,8 @@ import com.example.pokemon.ui.theme.PokemonTheme
 fun PokemonCard(
     pokemonName: String,
     pokemonId: Int,
-    onClick: (pokemonId: Int) -> Unit,
-    disableImageFetching: Boolean = false
+    disableImageFetching: Boolean = false,
+    onClick: (pokemonId: Int) -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -50,7 +50,7 @@ fun PokemonCard(
 @Composable
 fun PreviewPokemonCard() {
     PokemonTheme {
-        PokemonCard("Bulbasaur", 1, {}, disableImageFetching = true)
+        PokemonCard("Bulbasaur", 1, disableImageFetching = true) {}
     }
 }
 
@@ -58,6 +58,6 @@ fun PreviewPokemonCard() {
 @Composable
 fun PreviewPokemonCardDark() {
     PokemonTheme(darkTheme = true) {
-        PokemonCard("Bulbasaur", 1, {}, disableImageFetching = true)
+        PokemonCard("Bulbasaur", 1, disableImageFetching = true) {}
     }
 }

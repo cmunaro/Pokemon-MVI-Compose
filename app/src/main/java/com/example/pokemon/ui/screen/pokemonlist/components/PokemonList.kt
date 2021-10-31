@@ -1,22 +1,27 @@
 package com.example.pokemon.ui.screen.pokemonlist.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.pokemon.data.domainmodel.Pokemon
+import com.example.pokemon.ui.screen.pokemonlist.RequestFetchPokemons
+import com.example.pokemon.ui.screen.pokemonlist.RequestShowDetail
 import com.example.pokemon.ui.theme.PokemonTheme
+import com.example.pokemon.utils.Intent
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
@@ -26,31 +31,41 @@ import kotlinx.coroutines.runBlocking
 fun PokemonList(
     pagingDataFlow: Flow<PagingData<Pokemon>>?,
     disableImageFetching: Boolean = false,  // Needed for a bug in GlideImage that makes it not load `previewPlaceholder`
-    onPokemonClick: (pokemonId: Int) -> Unit
+    actionChannel: SendChannel<Intent>
 ) {
-    val listState = rememberLazyListState()
-    val scrollState = rememberScrollState()
 
-    val lazyPokemons = pagingDataFlow?.collectAsLazyPagingItems()
-    if (lazyPokemons == null) {
-        Text(
-            text = "There was a problem fetching pokemons!",
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h3
-        )
-    } else {
-        LazyVerticalGrid(
-            modifier = Modifier.scrollable(scrollState, Orientation.Vertical),
-            state = listState,
-            cells = GridCells.Fixed(2),
-            content = {
-                items(lazyPokemons.itemCount) { index ->
-                    lazyPokemons[index]?.let {
-                        PokemonCard(it.name, it.id, onPokemonClick, disableImageFetching)
+    val swipeRefreshState = rememberSwipeRefreshState(false)
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(swipeRefreshState.isRefreshing),
+        onRefresh = { actionChannel.trySend(RequestFetchPokemons) },
+    ) {
+        val lazyPokemons = pagingDataFlow?.collectAsLazyPagingItems()
+        if (lazyPokemons == null || lazyPokemons.itemCount == 0) {
+            Text(
+                text = "There are no Pokemon!",
+                modifier = Modifier.padding(top = 32.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h4
+            )
+        } else {
+            swipeRefreshState.isRefreshing = false
+            LazyVerticalGrid(
+                cells = GridCells.Fixed(2),
+                content = {
+                    items(lazyPokemons.itemCount) { index ->
+                        lazyPokemons[index]?.let {
+                            PokemonCard(
+                                pokemonName = it.name,
+                                pokemonId = it.id,
+                                disableImageFetching = disableImageFetching
+                            ) { pokemonId ->
+                                actionChannel.trySend(RequestShowDetail(pokemonId))
+                            }
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -72,8 +87,9 @@ fun PokemonListPreview() {
     PokemonTheme {
         PokemonList(
             pagingDataFlow = pagingFlow,
-            disableImageFetching = true
-        ) {}
+            disableImageFetching = true,
+            actionChannel = Channel()
+        )
     }
 
     runBlocking {

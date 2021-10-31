@@ -40,7 +40,7 @@ class PokemonDetailsInstrumentationTest {
         composeTestRule.onNodeWithText("steel").assertIsDisplayed()
         composeTestRule.onNodeWithText("Base Stat").assertIsDisplayed()
         composeTestRule.onNodeWithText("HP").assertIsDisplayed()
-        composeTestRule.onNodeWithText("SPEED").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VEL").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Unknown pokemon image")
             .assertIsDisplayed()
     }

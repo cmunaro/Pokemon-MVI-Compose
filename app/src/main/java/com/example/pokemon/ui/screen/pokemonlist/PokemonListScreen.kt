@@ -29,10 +29,9 @@ fun PokemonListScreen(
             when(it) {
                 is PokemonListState.PokemonList -> PokemonList(
                     pagingDataFlow = it.pagingDataFlow,
-                    disableImageFetching = disableImageFetching
-                ) { clickedPokemonId ->
-                    actionChannel.trySend(PokemonListIntent.ShowDetail(clickedPokemonId))
-                }
+                    disableImageFetching = disableImageFetching,
+                    actionChannel = actionChannel
+                )
             }
         }
     }

@@ -1,5 +1,9 @@
 # MVI Compose Pokedex
-
+<p align="center">
+<img width=300 src="https://user-images.githubusercontent.com/16867697/139605691-7a1d4f0a-2991-4ebd-8f9c-fe40e96115f0.png" />
+<img width=300 src="https://user-images.githubusercontent.com/16867697/139605694-234d590c-6fa0-431d-9eec-da42436efc88.png" />
+</p>
+ 
 ## Stack
 - **Jetpack Compose**
 - **Jetpack Navigation**

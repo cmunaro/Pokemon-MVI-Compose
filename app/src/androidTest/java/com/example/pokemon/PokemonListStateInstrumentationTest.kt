@@ -6,14 +6,14 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollTo
 import androidx.paging.PagingData
 import com.example.pokemon.data.domainmodel.Pokemon
-import com.example.pokemon.ui.screen.pokemonlist.PokemonListScreen
 import com.example.pokemon.ui.screen.pokemonlist.PokemonListState
+import com.example.pokemon.ui.screen.pokemonlist.PokemonListScreen
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
 
-class PokemonListInstrumentationTest {
+class PokemonListStateInstrumentationTest {
 
     @get:Rule(order = 1)
     val composeTestRule = createComposeRule()
@@ -28,7 +28,7 @@ class PokemonListInstrumentationTest {
             Pokemon(name = "charmeleon"),
             Pokemon(name = "charizard"),
         )
-        val pokemonListState = PokemonListState.PokemonList(
+        val pokemonListState = PokemonListState(
             flowOf(PagingData.from(dummyPokemonList))
         )
 

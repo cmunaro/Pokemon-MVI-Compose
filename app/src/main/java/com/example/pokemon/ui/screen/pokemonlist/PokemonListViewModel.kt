@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonListViewModel @Inject constructor(
     private val repository: PokemonRepository
-) : AndroidIntentDataFlow() {
+) : AndroidIntentDataFlow(defaultState = PokemonListState()) {
 
     override val intentHandler: ((Intent) -> Unit) = { intent ->
         when (intent) {
@@ -31,8 +31,12 @@ class PokemonListViewModel @Inject constructor(
     }
 
     private fun getPokemons() = action {
+        alterState<PokemonListState> { copy(isLoading = true) }
         setState {
-            PokemonListState.PokemonList(repository.getPokemons().cachedIn(viewModelScope))
+            PokemonListState(
+                repository.getPokemons().cachedIn(viewModelScope),
+                isLoading = false
+            )
         }
     }
 
@@ -43,11 +47,10 @@ class PokemonListViewModel @Inject constructor(
     }
 }
 
-sealed class PokemonListState : UIState() {
-    data class PokemonList(
-        val pagingDataFlow: Flow<PagingData<Pokemon>>?
-    ) : PokemonListState()
-}
+data class PokemonListState(
+    val pagingDataFlow: Flow<PagingData<Pokemon>>? = null,
+    val isLoading: Boolean = false
+) : UIState()
 
 data class RequestShowDetail(val pokemonId: Int) : Intent
 object RequestFetchPokemons : Intent

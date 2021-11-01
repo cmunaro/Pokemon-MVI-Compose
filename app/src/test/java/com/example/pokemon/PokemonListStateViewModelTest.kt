@@ -25,7 +25,7 @@ import org.junit.Test
 import org.junit.rules.TestRule
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class PokemonListViewModelTest {
+class PokemonListStateViewModelTest {
     private val pokemonRepository = mockk<PokemonRepository>()
     private lateinit var viewmodel: PokemonListViewModel
 
@@ -57,9 +57,9 @@ class PokemonListViewModelTest {
         viewmodel.states.asFlow().test {
             val state = awaitItem()
 
-            assertThat(state).isInstanceOf(PokemonListState.PokemonList::class.java)
-            state as PokemonListState.PokemonList
-            assertThat(state.pagingDataFlow).isEqualTo(flowOfPaginatedPokemon)
+            assertThat(state).isInstanceOf(PokemonListState::class.java)
+            state as PokemonListState
+            assertThat(state.isLoading).isFalse()
 
             expectNoEvents()
         }

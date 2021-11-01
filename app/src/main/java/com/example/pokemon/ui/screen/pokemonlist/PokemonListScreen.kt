@@ -27,7 +27,7 @@ fun PokemonListScreen(
     ) }) {
         state?.let {
             when(it) {
-                is PokemonListState.PokemonList -> PokemonList(
+                is PokemonListState -> PokemonList(
                     pagingDataFlow = it.pagingDataFlow,
                     disableImageFetching = disableImageFetching,
                     actionChannel = actionChannel
@@ -48,7 +48,7 @@ fun PokemonListScreenPreview() {
         Pokemon(name = "charmeleon"),
         Pokemon(name = "charizard"),
     )
-    val pokemonListState = PokemonListState.PokemonList(
+    val pokemonListState = PokemonListState(
         flowOf(PagingData.from(dummyPokemonList))
     )
 

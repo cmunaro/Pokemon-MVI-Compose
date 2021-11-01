@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.uniflow.core.flow.data.UIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,6 +48,7 @@ class PokemonListViewModel @Inject constructor(
     }
 }
 
+@Immutable
 data class PokemonListState(
     val pagingDataFlow: Flow<PagingData<Pokemon>>? = null,
     val isLoading: Boolean = false

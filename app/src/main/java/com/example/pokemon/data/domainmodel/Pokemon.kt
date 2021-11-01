@@ -1,12 +1,9 @@
 package com.example.pokemon.data.domainmodel
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.pokemon.data.model.PokemonResponse
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Entity(tableName = "pokemon")
 data class Pokemon(
     @PrimaryKey var id: Int = 0,
@@ -15,16 +12,14 @@ data class Pokemon(
     var weight: Int = 0,
     var stats: List<StatInfo> = emptyList(),
     var types: List<Type> = emptyList()
-) : Parcelable
+)
 
-@Parcelize
 data class StatInfo(
     @PrimaryKey val stat: Stat,
     val baseStat: Int,
-) : Parcelable
+)
 
-@Parcelize
-enum class Stat(val maxValue: Int, val shortName: String) : Parcelable {
+enum class Stat(val maxValue: Int, val shortName: String) {
     HP(300, "HP"),
     ATTACK(300, "ATK"),
     DEFENSE(300, "DEF"),
@@ -36,8 +31,7 @@ enum class Stat(val maxValue: Int, val shortName: String) : Parcelable {
     UNKNOWN(0, "UNK")
 }
 
-@Parcelize
-enum class Type : Parcelable {
+enum class Type {
     NORMAL,
     FIGHTING,
     FLYING,

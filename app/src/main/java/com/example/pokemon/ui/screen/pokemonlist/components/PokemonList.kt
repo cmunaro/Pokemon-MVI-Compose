@@ -1,6 +1,7 @@
 package com.example.pokemon.ui.screen.pokemonlist.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -40,15 +41,14 @@ fun PokemonList(
         onRefresh = { actionChannel.trySend(RequestFetchPokemons) },
     ) {
         val lazyPokemons = pagingDataFlow?.collectAsLazyPagingItems()
-        if (lazyPokemons == null || lazyPokemons.itemCount == 0) {
+        if (lazyPokemons == null) {
             Text(
                 text = "There are no Pokemon!",
-                modifier = Modifier.padding(top = 32.dp),
+                modifier = Modifier.padding(top = 32.dp).fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h4
             )
         } else {
-            swipeRefreshState.isRefreshing = false
             LazyVerticalGrid(
                 cells = GridCells.Fixed(2),
                 content = {
@@ -63,6 +63,7 @@ fun PokemonList(
                             }
                         }
                     }
+                    swipeRefreshState.isRefreshing = false
                 }
             )
         }
@@ -83,6 +84,9 @@ fun PokemonListPreview() {
             Pokemon(name = "charizard"),
         )
     )
+    runBlocking {
+        pagingFlow.emit(pagingData)
+    }
 
     PokemonTheme {
         PokemonList(
@@ -90,9 +94,5 @@ fun PokemonListPreview() {
             disableImageFetching = true,
             actionChannel = Channel()
         )
-    }
-
-    runBlocking {
-        pagingFlow.emit(pagingData)
     }
 }
